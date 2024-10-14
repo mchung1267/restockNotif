@@ -1,4 +1,4 @@
-package com.mchung.restocknotif.entity;
+package com.mchung.restocknotif.notification.product_notification.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,9 +16,10 @@ public class ProductNotificationHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="productId", nullable = false)
-    private Long productId;
-
-    @Column(name="message", nullable = false)
-    private String message;
+    @Column(name="restockCount", nullable = false)
+    private Long restockCount;
+    @Column(name="isSent", nullable = false)
+    private Boolean isSent;
+    @Column(name="lastUserId", nullable = false)
+    private Long lastUserId;
 }

@@ -1,9 +1,11 @@
-package com.mchung.restocknotif.entity;
+package com.mchung.restocknotif.notification.product_user_notification.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -18,10 +20,8 @@ public class UserNotificationHistory {
 
     @Column(name="userId", nullable = false)
     private Long userId;
-
-    @Column(name="notiId", nullable = false)
-    private Long notiId;
-
-    @Column(name="productId", nullable = false)
-    private Long productId;
+    @Column(name="restockCount", nullable = false)
+    private Long restockCount;
+    @Column(name="shippedTime", nullable = false)
+    private Timestamp shippedTime;
 }

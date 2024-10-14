@@ -1,4 +1,4 @@
-package com.mchung.restocknotif.entity;
+package com.mchung.restocknotif.product.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,12 +16,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="inStock", nullable = false)
-    private Boolean inStock;
+    @Column(name="restockCount", nullable = false)
+    private Long restockCount;
 
-    @Column(name="stockCount", nullable = false)
-    private Long stockCount;
-
-    @Column(name="name", nullable = false)
-    private String name;
+    @Column(name="status", nullable = false)
+    private String status;
 }
