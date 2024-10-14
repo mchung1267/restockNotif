@@ -1,0 +1,30 @@
+services:
+  database:
+    container_name: notif_data
+    image: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: review
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: 'adminp&ss'
+    ports:
+      - "3306:3306"
+    command:
+      - "mysqld"
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+
+  application:
+    container_name: restok-notif
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://notif_data:3306/notif?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "adminp&ss"
+    depends_on:
+      - database
