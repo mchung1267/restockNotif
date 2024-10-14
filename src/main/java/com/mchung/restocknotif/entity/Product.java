@@ -15,4 +15,13 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name="inStock", nullable = false)
+    private Boolean inStock;
+
+    @Column(name="stockCount", nullable = false)
+    private Long stockCount;
+
+    @Column(name="name", nullable = false)
+    private String name;
 }

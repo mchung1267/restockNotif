@@ -9,4 +9,5 @@ public class ProductDto {
     private Long id;
     private Boolean inStock;
     private Long stockCount;
+    private String name;
 }

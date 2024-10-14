@@ -15,4 +15,13 @@ public class UserNotificationHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name="userId", nullable = false)
+    private Long userId;
+
+    @Column(name="notiId", nullable = false)
+    private Long notiId;
+
+    @Column(name="productId", nullable = false)
+    private Long productId;
 }
