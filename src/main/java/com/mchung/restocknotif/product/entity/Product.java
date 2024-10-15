@@ -1,5 +1,6 @@
 package com.mchung.restocknotif.product.entity;
 
+import com.mchung.restocknotif.product.dto.ProductDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +22,9 @@ public class Product {
 
     @Column(name="status", nullable = false)
     private String status;
+
+    public void update(ProductDto productDto) {
+        this.restockCount = productDto.getRestockCount();
+        this.status = productDto.getStatus();
+    }
 }

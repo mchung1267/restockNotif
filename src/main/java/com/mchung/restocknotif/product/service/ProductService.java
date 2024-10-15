@@ -6,6 +6,8 @@ import com.mchung.restocknotif.notification.product_notification.repository.Prod
 import com.mchung.restocknotif.notification.product_user_notification.dto.HistoryDto;
 import com.mchung.restocknotif.notification.product_user_notification.dto.NotificationDto;
 import com.mchung.restocknotif.notification.product_user_notification.entity.UserNotification;
+import com.mchung.restocknotif.product.dto.ProductDto;
+import com.mchung.restocknotif.product.entity.Product;
 import com.mchung.restocknotif.product.repository.ProductRepository;
 import com.mchung.restocknotif.notification.product_user_notification.repository.UserNotificationHistoryRepository;
 import com.mchung.restocknotif.notification.product_user_notification.repository.UserNotificiationRepository;
@@ -32,6 +34,9 @@ public class ProductService {
         List<ProductNotificationHistory> history = productNotificationRepository.findByProductId(productId);
         ProductNotificationDto productNotificationDto = new ProductNotificationDto();
         ProductNotificationHistory product = new ProductNotificationHistory();
+        Product product1 = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("해당 상품은 존재하지 않습니다"));
+        ProductDto productDto = new ProductDto();
+        productDto.setId(productId);
         if(history.size() == 0) {
             product.setRestockCount(0L);
             product.setIsSent(false);
@@ -49,11 +54,18 @@ public class ProductService {
             userIds[i] = subscribed.get(i).getId();
         }
         productNotificationDto.setRestockCount(productNotificationDto.getRestockCount() + 1);
+        productDto.setRestockCount(productDto.getRestockCount() + 1);
         for (UserNotification userNotification : subscribed) {
             if (notiCount < maxNoti) {
                 productNotificationDto.setIsSent(true);
                 productNotificationDto.setLastUserId(userNotification.getId());
                 updateHistory(productNotificationDto, userNotification.getId());
+                notiCount++;
+            }
+            if(notiCount >= maxNoti) {
+                productDto.setStatus("COMPLETED");
+                product1.update(productDto);
+                break;
             }
         }
     }
